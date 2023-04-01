@@ -33,22 +33,30 @@ body {
 }
 
 .pre_screen {
-    background-color: rgb(204, 209, 212);
+    background-color: rgb(216, 216, 216);
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
     width: 710px;
-    height: 40px;
+    height: 50px;
     margin-bottom: 1px;
+    font-size: 25px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 
 }
 
-.curent_screen {
-    background-color: aliceblue;
+.current_screen {
+    background-color: rgb(255, 255, 255);
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     width: 710px;
     height: 75px;
     margin-bottom: 8px;
+    font-size: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 
 }
 
@@ -58,11 +66,11 @@ button {
     font-size: 50px;
 }
 
-.symbol {
+.symbol, .clear, .delete, .dot  {
     background-color: rgb(247, 99, 99);
 }
 
-button.symbol:hover {
+button.symbol:hover, button.clear:hover, button.delete:hover, button.dot:hover {
     background-color: rgb(248, 162, 162);
 }
 
