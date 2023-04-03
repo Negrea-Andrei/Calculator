@@ -35,87 +35,24 @@ numbers.forEach(number => {
 /*Added EventListeners for the operator buttons so that the operand changes after an operand is pressed*/
 symbol.forEach(sign => {
     sign.addEventListener('click', () => {
-
-        /*Change the value of the operands for the mathematical equations*/
-        preOperand = currentOperand;
-        currentOperand = sign.innerHTML;
-
-        /*Change what currentDisplay and previousDisplay show by assigning the currentValue to the preValue and initializing currentValue to nothing */
-        /*To make sure the operand is not displayed alone i created a statement that will prevent the currentValue to be equal to nothing */
-        /* Set the numbers to a positive value */
-        if (preValue == '' && currentOperand !== '-') {
-
-            /*For the first values introduce it will initialize the numbers and operands that are going to be used */
-            preValue = currentValue;
-            currentValue = "";
-            currentDisplay.textContent = currentValue;
+        /* If the sign is not '=' then the equation is not going to be finished */
+        if (sign.textContent !== '=') {
+            calculate()
+            preValue = Number(currentValue);
+            currentOperand = sign.textContent
+            currentDisplay.textContent = currentValue
+            currentValue = ''
             previousDisplay.textContent = preValue + currentOperand
         }
-
-        /* Set the first value as a negative value */
-        else if (preValue == '' && currentOperand === '-') {
-
-            /*For the first values introduce it will initialize the numbers and operands that are going to be used */
-            currentValue += currentOperand;
-            currentDisplay.textContent = currentValue
-            if (currentValue !== '-') {
-                preValue = currentValue;
-                currentValue = ""
-                currentDisplay.textContent = currentValue;
-                previousDisplay.textContent = preValue 
-            }
-        }
-
-        /*Calculate the value of the number after preValue and currentValue have been subjected to the mathematical operation with the specified operand */
+        /* If sign is '=' then the equation is finished and the values are reset */
         else {
-
-            /*If the operand is '+' */
-            if (preOperand == '+') {
-                preValue = Number(preValue) + Number(currentValue);
-                currentValue = "";
-                currentDisplay.textContent = currentValue;
-                previousDisplay.textContent = preValue + currentOperand
-            }
-
-            /*If the operand is '*' */
-            else if (preOperand == '*') {
-                preValue = Number(preValue) * Number(currentValue);
-                currentValue = "";
-                currentDisplay.textContent = currentValue;
-                previousDisplay.textContent = preValue + currentOperand
-            }
-
-            /*If the operand is '/' */
-            else if (preOperand == '/') {
-                /* Make sure the operant won't divide with '0'*/
-                if (preValue == 0 || currentValue == 0) {
-                    preValue = 'ERROR'
-                    currentValue = "ERROR"
-                    currentDisplay.textContent = currentValue;
-                    previousDisplay = preValue
-                }
-                else {
-                    preValue = (Number(preValue) * 100000) / (Number(currentValue) * 100000);
-                    currentValue = "";
-                    currentDisplay.textContent = currentValue;
-                    previousDisplay.textContent = preValue + currentOperand
-                }
-            }
-
-            /*If the operand is '-' */
-            else if (preOperand == '-') {
-                preValue = Number(preValue) - Number(currentValue);
-                currentValue = "";
-                currentDisplay.textContent = currentValue;
-                previousDisplay.textContent = preValue + currentOperand
-            }
-
-            else if (currentOperand == "=") {
-
-            }
+            calculate()
+            preValue =''
+            currentOperand = ''
+            currentDisplay.textContent = currentValue
+            previousDisplay.textContent = preValue
         }
     })
-
 })
 
 /*Add eventListener to initialize currentValue and preValue to '' */
@@ -131,7 +68,7 @@ del.addEventListener('click', () => {
     let arrayNumber = currentValue.split('')
     arrayNumber.pop();
     currentValue = arrayNumber.join('')
-    currentDisplay.innerHTML = currentValue
+    currentDisplay.textContent = currentValue
 })
 
 /*Add one dot to the number */
@@ -142,8 +79,24 @@ dot.addEventListener('click', () => {
         arrayNumber.push('.')
     }
     currentValue = arrayNumber.join('')
-    currentDisplay.innerHTML = currentValue
+    currentDisplay.textContent = currentValue
     console.log(currentValue)
 })
+
+/*Create a function that is going to handle mathematical equations and return the new value */
+function calculate() {
+    if (currentOperand == '+') {
+        currentValue = Number(preValue) + Number(currentValue)
+    }
+    else if (currentOperand == "-") {
+        currentValue = Number(preValue) - Number(currentValue)
+    }
+    else if (currentOperand == '*') {
+        currentValue = Number(preValue) * Number(currentValue)
+    }
+    else if (currentOperand == '/') {
+        currentValue = (Number(preValue) * 100000) / (Number(currentValue) * 100000)
+    }
+}
 
 
